@@ -21,7 +21,6 @@ public class SecurityConfig {
                         .requestMatchers("/transactions/**").permitAll()
                         .anyRequest().authenticated()
                 );
-//                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 
