@@ -20,13 +20,6 @@ public class KafkaEventProducer {
     private final KafkaTemplate<String, Transaction> kafkaTemplate;
     private final ObjectMapper objectMapper;
 
-//    @Autowired
-//    public KafkaEventProducer(KafkaTemplate<String, Transaction> kafkaTemplate, ObjectMapper objectMapper) {
-//        this.kafkaTemplate = kafkaTemplate;
-//        this.objectMapper = objectMapper;
-//        // Register module to handle Java 8 date/time serialization
-//        this.objectMapper.registerModule(new JavaTimeModule());
-//    }
     public void sendTransactionEvent(String key, Transaction transaction) {
         System.out.println("📤 Sending to Kafka → Topic: " + TOPIC + ", Key: " + key + ", Message: " + transaction);
 
