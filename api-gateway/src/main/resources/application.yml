@@ -1,0 +1,37 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: api-gateway-service
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: user-service
+              uri: http://localhost:8080
+              predicates:
+                - Path=/auth/**
+
+            - id: transaction-service
+              uri: http://localhost:8081
+              predicates:
+                - Path=/transactions/**
+
+            - id: reward-service
+              uri: http://localhost:8083
+              predicates:
+                - Path=/rewards/**
+
+            - id: notification-service
+              uri: http://localhost:8082
+              predicates:
+                - Path=/notification/**
+
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+
+jwt:
+  secret: dhfgfh454k5454h5343nkdhfidhfd99r8cnk
