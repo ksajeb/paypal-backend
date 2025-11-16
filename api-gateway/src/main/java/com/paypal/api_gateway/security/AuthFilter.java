@@ -36,7 +36,9 @@ public class AuthFilter implements GlobalFilter, Ordered {
                     .doOnSuccess(v-> System.out.println("Successfully passed."))
                     .doOnError(e-> System.out.println("Error occurred"));
         }
+
         String authHeader=exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+
         if(authHeader==null || !authHeader.startsWith("Bearer ")){
             exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
             return exchange.getResponse().setComplete();
@@ -46,6 +48,8 @@ public class AuthFilter implements GlobalFilter, Ordered {
             Claims claims= jwtUtil.validateToken(token);
             exchange.getRequest().mutate()
                     .header("X-User-Email",claims.getSubject())
+                    .header("X-User-Id",claims.get("userId",String.class))
+                    .header("X-User-Role",claims.get("role",String.class))
                     .build();
 
             return chain.filter(exchange)
@@ -60,6 +64,6 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return 0;
+        return -100;
     }
 }

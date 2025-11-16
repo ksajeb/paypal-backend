@@ -14,24 +14,58 @@ spring:
               uri: http://localhost:8080
               predicates:
                 - Path=/auth/**
+              filters:
+                - name: RequestRateLimiter
+                  args:
+                    redis-rate-limiter.replenishRate: 10
+                    redis-rate-limiter.burstCapacity: 20
+                    redis-rate-limiter-requestTokens: 1
 
             - id: transaction-service
               uri: http://localhost:8081
               predicates:
                 - Path=/transactions/**
+              filters:
+                - name: RequestRateLimiter
+                  args:
+                    redis-rate-limiter.replenishRate: 10
+                    redis-rate-limiter.burstCapacity: 20
+                    redis-rate-limiter-requestTokens: 1
 
             - id: reward-service
               uri: http://localhost:8083
               predicates:
                 - Path=/rewards/**
+              filters:
+                - name: RequestRateLimiter
+                  args:
+                    redis-rate-limiter.replenishRate: 10
+                    redis-rate-limiter.burstCapacity: 20
+                    redis-rate-limiter-requestTokens: 1
 
             - id: notification-service
               uri: http://localhost:8082
               predicates:
                 - Path=/notification/**
+              filters:
+                - name: RequestRateLimiter
+                  args:
+                    redis-rate-limiter.replenishRate: 10
+                    redis-rate-limiter.burstCapacity: 20
+                    redis-rate-limiter-requestTokens: 1
 
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
 
 jwt:
   secret: dhfgfh454k5454h5343nkdhfidhfd99r8cnk
+
+
+httpClient:
+  max-initial-line-length: 4096
+  max-header-size: 8192
+
+filters:
+  - name: RequestSize
+    args:
+      maxSize: 1MB
