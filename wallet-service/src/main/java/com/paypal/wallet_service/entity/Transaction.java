@@ -1,0 +1,44 @@
+package com.paypal.wallet_service.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name="transactions")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Transaction {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private Long walletId;
+
+    @Column(nullable = false)
+    private String type;
+
+    @Column(nullable = false)
+    private Long amount;
+
+    @Column(nullable = false)
+    private String status;
+
+    @Column(nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    public Transaction(Long walletId, String type, Long amount, String status) {
+        this.walletId = walletId;
+        this.type = type;
+        this.amount = amount;
+        this.status = status;
+        this.createdAt = LocalDateTime.now();
+    }
+
+}
