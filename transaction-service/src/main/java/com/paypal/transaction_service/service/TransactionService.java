@@ -8,8 +8,8 @@ import java.util.List;
 
 @Service
 public interface TransactionService {
+    Transaction createTransaction(Transaction transaction);
 
-    Transaction createTransaction(TransferRequestDto requestDto);
+    public Transaction getTransactionById(Long id);
 
-    List<Transaction> getAllTransaction();
-}
+    public List<Transaction> getTransactionsByUser(Long userId);}

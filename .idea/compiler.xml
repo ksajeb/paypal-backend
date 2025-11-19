@@ -10,7 +10,7 @@
         <module name="transaction-service" />
         <module name="notification-service" />
       </profile>
-      <profile name="Annotation profile for wallet-service" enabled="true">
+      <profile name="Annotation profile for paypal-clone" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
@@ -19,8 +19,8 @@
         </processorPath>
         <module name="api-gateway" />
         <module name="user-service" />
-        <module name="wallet-service" />
         <module name="reward-service" />
+        <module name="wallet-service" />
       </profile>
     </annotationProcessing>
   </component>
